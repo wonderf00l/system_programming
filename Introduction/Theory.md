@@ -73,5 +73,15 @@ Some examples of the dynamic linking: firstly, again mmap - it not only loads a 
 - Нет расходов на IPC, но такие ядра сложнее в разработке и поддержке
 - User interacts with monolithic kernel via system calls. It is a set of functions, which kernel exposes to be called by user's applications, and around which there are various wrappers. For instance, 'printf' is a wrapper around syscall 'write'. Function 'write' is also a wrapper around system call 'write', because system call is much lower than functions. Almost always highlevel functions called by user's code, and which are called system calls, actually are just wrappers, probably one-liners. 
 - Another one of the main OS tasks - hardware management. It works via interrupts - kernel communicates with devices using electrical signals, interrupting a current thread and invoking the interrupt handler. Under devices usually is meant anything physical - memory, keyboard, mouse, screen, disks, CPU etc. Via system calls a user is able to work with the hardware through the kernel.
+
+
+![[Pasted image 20241027185626.png]]
+- System calls are not a Linux kernel's unique feature. During Unix systems boom every OS had its own set of system calls. Their number was growing, old calls were being deprecated or changed. The same was happening with even mere library functions, which could have one interface on multiple systems, but diff in behaviour. Corporations and institutes decided to create standards so as to simplify their life and life of their clients, users.
+
+![[Pasted image 20241027185658.png]]
+- In 1988 Institute of Electrical and Electronics Engineers (IEEE) released first POSIX - Portable Operating System Interface. The standard defines which services should provide OS to be "POSIX compliant". 
+- POSIX defines only an interface, not implementation, it does not make a difference between library functions and system calls. It is an OS' job to choose how to implement something - in userspace via a library function, or in kernel space via a system call. The only thing which matters is the interface and behavior.
+- Единый стандарт API, определенные требования к поведению ОС, набор функций - нужный для унификации, чтобы писать как можно более платформонезависимый код, а не разрабатывать одно и то же приложение по 10 раз для каждой ОС
+
 ---
 презентация: https://slides.com/gerold103/sysprog_eng0
