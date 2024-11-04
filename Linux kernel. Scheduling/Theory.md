@@ -181,7 +181,14 @@
 
 
 
+#### IPC
+![](../_resources/Pasted%20image%2020241104131035.png)
 
+
+#### Users, groups, permissions
+![](../_resources/Pasted%20image%2020241104131216.png)
+- Проверка permissions
+	- файлы, объекты IPC и проч обладают маской доступа, при совершении манипуляций с объектами ядро сверяет маску и креды процесса
 
 ---
 https://slides.com/gerold103/sysprog_eng1
