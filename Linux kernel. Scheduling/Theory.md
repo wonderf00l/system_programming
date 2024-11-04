@@ -175,6 +175,12 @@
 - ОС работает не с конкретными файловыми системами, а с т.н. ***виртуальной файловой системой***, то есть можно реализовать файловую систему, реализовав указанный нобар функций
 - реализованная ФС подключается в ядро - добавляется структура с проинициализированными указателями на функции
 
+> A **function** **pointer**, also called a subroutine **pointer** or procedure **pointer**, is a **pointer** that **points** to a **function**. As opposed to referencing a data value, a **function** **pointer** **points** to executable code within memory. Dereferencing the **function** **pointer** yields the referenced **function**, which can be invoked and passed arguments just as in a normal **function** call. (https://stackoverflow.com/questions/840501/how-do-function-pointers-in-c-work)
+
+> **Указатель на функцию** — это выражение или переменная, которые используются для представления адреса функции. Указатель содержит адрес первого байта в памяти, по которому располагается выполняемый код функции.
+
+
+
 
 
 ---
