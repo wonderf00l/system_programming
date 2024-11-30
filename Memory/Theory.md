@@ -216,5 +216,12 @@
 
 
 
+- Про разервированный диапазон адресов под ядро в виртуальном адресном пространстве - уже устарело из-за meltdown? теперь не мапится в пространтсва процессов и живет отдельно? 
+A process "owns" the entire virtual address space here, the kernel and the user portions of it.
+
+Its inability to peek and poke the kernel code and data is not due to different address spaces, it's due to different access rights/permissions set in the page tables. Kernel pages are set up in such a way that regular applications can't access them.
+
+It is, however, customary to refer to the two parts of one whole thing as the kernel space and the user space and that can be confusing.
+
 ---
 https://slides.com/gerold103/sysprog_eng3
