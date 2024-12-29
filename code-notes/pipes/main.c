@@ -33,8 +33,9 @@ int main(int argc, const char **argv)
     return 0;
 }
 
-int pipes1(int argc, const char **argv) // будем блокироваться, если не закроем duplicated дескрипторы
-{
+// суть примера - нужно закрывать дескрипторы-дубли, иначе заблокируемся на этапе чтения: в ребенке нужно закрыть дубль конца пайпа для записи, потому что даже после закрытия такового в родителе(т.е. на пишущей стороне) файловый дескриптор продолжит   
+int pipes1(int argc, const char **argv) // существовать, т.к. остались копии дескрипторов, в итоге мы залочимся в цикле на чтение.
+{ // будем блокироваться, если не закроем duplicated дескрипторы
     int channel[2];
     int need_close = argc > 1 && strcmp(argv[1], "close") == 0;
     pipe(channel);
@@ -45,7 +46,7 @@ int pipes1(int argc, const char **argv) // будем блокироваться
         if (need_close)
         {
             printf("child: close output channel\n");
-            close(channel[1]);
+            close(channel[1]); // 
         }
         while (read(channel[0], buf, sizeof(buf)) > 0)
             printf("child: read %s\n", buf);
