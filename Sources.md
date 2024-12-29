@@ -1,3 +1,5 @@
+### Presentations
+https://slides.com/gerold103
 
 ### Assembley
 - https://derek.gurchik.com/2017/beginners-assembly-part1
