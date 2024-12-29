@@ -57,7 +57,18 @@
 ***Пример:***
 1. В unix-like процесс порождается функцией ***fork()*** стандартной библиотеки С, которая под капотом дернет sys_fork(), это уже конкретная инструкция вида syscall instruction + syscall num as an arg
 2. ***! sys_fork() - linux-специфичный syscall, например, windows предоставляет иной api для примерно того же самого - CreateChildProcess()***. Для windows принцип тот же: будут некие обертки над сырым windows syscall, которые будут дергать windows specific syscall типа CreateChildProcess() и др. Сами обертки уже будут находиться в других стандартных библиотеках для винды
-3. То есть исполнение бинаря, который дергает какие-нибудь ***fork(), pipe() или mmap()*** на винде приведет к крашу, оно не исполнится
+3. То есть исполнение бинаря, который дергает какие-нибудь ***fork(), pipe() или mmap()***, на винде приведет к крашу, оно не исполнится
+
+**Windows не изначально соответствует стандарту POSIX**, поэтому в ней используются разные системные вызовы и API.  [1](https://www.softpost.org/c-language/why-we-have-different-c-code-for-posix-and-windows-system)
+
+Для обеспечения соответствия POSIX для некоторых продуктов Microsoft Windows используются следующие инструменты:
+
+- **Cygwin**. Обеспечивает частичное соответствие POSIX. [2](https://ru.wikipedia.org/wiki/POSIX)
+- **Подсистема для UNIX-приложений (SUA)**. Необязательная подсистема Windows, обеспечивающая готовое окружение для компиляции и исполнения POSIX-совместимых приложений. [2](https://ru.wikipedia.org/wiki/POSIX)
+- **«Microsoft Windows Services for UNIX»**. Обеспечивает полное соответствие POSIX для некоторых продуктов Microsoft Windows. [2](https://ru.wikipedia.org/wiki/POSIX)
+- **Windows Subsystem for Linux**. Прослойка совместимости, впервые появившаяся в Windows 10 и реализующая API ядра Linux поверх Windows. Позволяет запускать окружение некоторых дистрибутивов в пространстве пользователя. [2](https://ru.wikipedia.org/wiki/POSIX)
+- **UWIN**. Набор библиотек и утилит, обеспечивающих POSIX-совместимое окружение поверх Win32 API. [2](https://ru.wikipedia.org/wiki/POSIX)
+
 
 ![](../_resources/Pasted%20image%2020241123165412.png)
 - Таблица вида номер сискола - хендлер в коде ядра Linux
