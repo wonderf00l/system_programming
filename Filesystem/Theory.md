@@ -108,6 +108,8 @@
 	- подача + на drain и ctrl gate. если суммарный заряд правой области 0, то электроны есть во floating gate
 
 
+![](../_resources/Pasted%20image%2020241231185726.png)
+
 
 ![](../_resources/Pasted%20image%2020241205004202.png)
 
