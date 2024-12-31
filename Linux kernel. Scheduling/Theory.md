@@ -250,9 +250,11 @@
 	- сигналы
 
 ![](../_resources/Pasted%20image%2020241123153157.png)
----
-https://slides.com/gerold103/sysprog_eng1
 
 
 ![](../_resources/Pasted%20image%2020241123153218.png)
 - Можно анализировать core дампы(снимки памяти процесса перед падением) через спец утилиты
+
+
+---
+https://slides.com/gerold103/sysprog_eng1
