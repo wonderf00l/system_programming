@@ -97,5 +97,7 @@ futex_unlock(int *futex)
 
 ##### [Memory barriers](Memory%20barriers.md)
 
+##### [pthread](pthread.md)
 
 
+![](../_resources/Pasted%20image%2020250103170630.png)
