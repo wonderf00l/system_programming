@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"runtime"
+	"syscall"
 )
 
 var (
