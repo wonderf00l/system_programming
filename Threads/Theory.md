@@ -48,7 +48,41 @@
 ![](../_resources/Pasted%20image%2020250101230736.png)
 - Проблема spin lock - это активное ожидание: вместо того чтобы отправить потоки спать, перепланировать их и тп, производится активная работа вхолостую
 
+![](../_resources/Pasted%20image%2020250103163414.png)
+![](../_resources/Pasted%20image%2020250103163241.png)
+- Эту проблему призван решить futex(это и изменяемое значение, и название syscall) - системный вызов, отправляющий текущий поток спать в случае ***futex_wait***
+- другой поток пробуждает спящие потоки, уведомляет их об изменении переменной futex
+- в этом случае не производится активное ожидание, однако тут уже выполняется syscall
 
+```C
+int
+futex_wait(int *futex, int val)
+{
+	return syscall(SYS_futex, futex, FUTEX_WAIT, val,
+		       NULL, NULL, 0);
+}
+
+int
+futex_wake(int *futex)
+{
+	return syscall(SYS_futex, futex, FUTEX_WAKE, 1,
+		       NULL, NULL, 0);
+}
+
+void
+futex_lock(int *futex)
+{
+	while (__sync_val_compare_and_swap(futex, 0, 1) != 0)
+		futex_wait(futex, 1); // тут поток уйдет спать
+}
+
+void
+futex_unlock(int *futex)
+{
+	__sync_bool_compare_and_swap(futex, 1, 0);
+	futex_wake(futex); // уведомление спящих потоков
+}
+```
 - ***Mutex*** на основе ***futex*** syscall: https://slides.com/gerold103/sysprog_eng6#/23/0/3
 
 
