@@ -35,3 +35,44 @@ write_to_shared_mem(char *mem, const char *src, int size)
 	}
 }
 ```
+
+![](../_resources/Pasted%20image%2020250105191957.png)
+- ***pipe, mmap*** можно использовать для связи родственных процессов, однако для связи разнородных процессов нужны иные средства IPC
+
+#### FIFO
+![](../_resources/Pasted%20image%2020250105192234.png)
+- FIFO - именованный pipe
+- при создании fifo через mkfifo в файловой системе создается файл с типом pipe
+- если в случае pipe данные читателя/писателя отправляются в некий промежуточнйы буфер, то есть операции неблокирущие, если есть куда писать/есть что читать
+- в случае fifo передача данных идет напрямую через буферы писателя/читателя; размер файла fifo 1 байт - по сути это небуферизированный канал для записи/чтения сообщений
+
+##### server
+```go
+int main()
+{
+	mkfifo("/tmp/fifo_server", S_IRWXU | S_IRWXO);
+	int fd = open("/tmp/fifo_server", O_RDONLY);
+	while (1) {
+		pid_t new_client;
+		if (read(fd, &new_client, sizeof(pid_t)) > 0)
+			printf("new client %d\n", (int) new_client);
+		else
+			sched_yield();
+	}
+}
+```
+
+##### client
+```go
+int main()
+{
+	int fd = open("/tmp/fifo_server", O_WRONLY);
+	pid_t pid = getpid();
+	write(fd, &pid, sizeof(pid));
+	printf("my pid %d is sent to server\n", (int) pid);
+	close(fd);
+	return 0;
+}
+```
+
+![](../_resources/Pasted%20image%2020250105192901.png)
