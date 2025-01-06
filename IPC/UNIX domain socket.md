@@ -113,3 +113,8 @@ accept(int sockfd, struct sockaddr *addr,
 	- менее наглядно + типы должны строго совпадать
 
 - Оба варианта корректно скастуются к базовому классу, потому что первые sizeof(child) байт ребенка можно интепретировать как родителя - потому и нужно строгое соответствие типов во 2-ом случае
+
+- p2p example: https://github.com/sysprogio/sysprog/blob/master/lecture_examples/7_ipc/14_sock_dgram.c
+- client-server example: https://github.com/sysprogio/sysprog/blob/master/lecture_examples/7_ipc/15_sock_server.c
+
+![](../_resources/Pasted%20image%2020250107001716.png)
