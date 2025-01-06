@@ -132,3 +132,36 @@ semaphore_put(struct semaphore *sem)
 #### Shared memory(аналог mmap)
 ![](../_resources/Pasted%20image%2020250106093654.png)
 - ***shmat*** - мапинг id/дескриптора, полученного в shmget, на кусок памяти в системе
+
+
+
+#### POSIX Semaphore
+
+```go
+sem_t *
+sem_open(const char *name, int oflag,
+         mode_t mode, unsigned int value);
+         // Creation of a named semaphore. Like in XSI. **Does not require** existence of a file
+
+int
+sem_init(sem_t *sem, int pshared, unsigned int value); // Creation of an anonymous semaphore. Will be available only in this process and in children
+
+int
+sem_wait(sem_t *sem); // Subtract 1 from semaphore if it is > 0 or block until it becomes > 0, and then subtract
+
+int
+sem_post(sem_t *sem); // Add 1 to semaphore, wakeup waiters
+
+int
+sem_unlink(const char *name); // Delete the semaphore. Real deletion will happen only after the last user does unlink().
+
+int
+sem_close(sem_t *sem); // Close but do not delete. Will free local resources in the caller process.
+```
+
+- ***No destructor similar to SEM_UNDO*** - то есть если процесс взял лок и помер, лок утечет
+- Можно использовать именованный семафор(через sem_open) для обеспечения взаимодействия между процессами.
+- Можно использовать анонимный, в рамках процесса(на уровне тредов) и детей(взаимодейстие процессов - ближайших родственников)
+
+#### [UNIX domain socket](UNIX%20domain%20socket.md)
+
