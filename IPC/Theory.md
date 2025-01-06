@@ -39,7 +39,7 @@ write_to_shared_mem(char *mem, const char *src, int size)
 ![](../_resources/Pasted%20image%2020250105191957.png)
 - ***pipe, mmap*** можно использовать для связи родственных процессов, однако для связи разнородных процессов нужны иные средства IPC
 
-#### FIFO
+#### FIFO IPC(POSIX)
 ![](../_resources/Pasted%20image%2020250105192234.png)
 - FIFO - именованный pipe
 - при создании fifo через mkfifo в файловой системе создается файл с типом pipe
@@ -163,5 +163,5 @@ sem_close(sem_t *sem); // Close but do not delete. Will free local resources in 
 - Можно использовать именованный семафор(через sem_open) для обеспечения взаимодействия между процессами.
 - Можно использовать анонимный, в рамках процесса(на уровне тредов) и детей(взаимодейстие процессов - ближайших родственников)
 
-#### [UNIX domain socket](UNIX%20domain%20socket.md)
+#### [UNIX domain socket(POSIX)](UNIX%20domain%20socket(POSIX).md)
 
