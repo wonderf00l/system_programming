@@ -88,3 +88,13 @@ accept(int sockfd, struct sockaddr *addr,
 ```
 - Результат `accept()` принятия `connect()` подключения - установка двунаправленного канала связи, по сути создание глобальной сокет-пары для связи разных процессов
 - И это скейлится на n коннектов суммарно для n клиентов - сервер будет взаимодействовать с клиентами с помощью n разных дескрипторов сокетов 
+
+
+![](../_resources/Pasted%20image%2020250106133051.png)
+- ***Client-server*** взаимодействие через сокет-пару
+	- server: `socket()` + `bind()` + `listen()` + `accept()` --> read/write
+	- client: `socket()` + `connect()` --> read/write
+- ***Peer-to-peer*** взаимодействие через сокет-пару
+	- peer1: `socket()` + `bind()` -->
+								`sendto/recvfrom` between peers
+	- peer2: `socket()` + `bind()` -->
