@@ -163,5 +163,9 @@ sem_close(sem_t *sem); // Close but do not delete. Will free local resources in 
 - Можно использовать именованный семафор(через sem_open) для обеспечения взаимодействия между процессами.
 - Можно использовать анонимный, в рамках процесса(на уровне тредов) и детей(взаимодейстие процессов - ближайших родственников)
 
+
+![](../_resources/Pasted%20image%2020250107112450.png)
+- + UNIX domain socket
 #### [UNIX domain socket(POSIX)](UNIX%20domain%20socket(POSIX).md)
 
+![](../_resources/Pasted%20image%2020250107001716.png)
