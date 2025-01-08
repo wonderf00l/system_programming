@@ -59,6 +59,9 @@
 
 
 ![](../_resources/Pasted%20image%2020250108132034.png)
+
+> Сетевые сокеты - средство IPC для обеспечения взаимодействия процессов, в общем случае работающих на разных машинах
+
 - Фактически тип сокета определяет основные методы обработки, упаковки и отправки данных, записываемых в сокет/читаемых из сокета(иначе говоря, определяет диапазон конкретных применяемых протоколов)
 - **Why TCP (SOCK_STREAM) is Considered a Stream:** 
 While TCP indeed operates on the concept of **packets (or segments)** at a lower level (the transport layer), **TCP provides a reliable byte stream** at the application layer. This means that for the user or application programming interface (API) level, the data is treated as a continuous, ordered flow of bytes, without worrying about the underlying packetization.  
