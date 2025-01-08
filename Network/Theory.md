@@ -43,4 +43,34 @@
 
 ![](../_resources/Pasted%20image%2020250108124001.png)
 
+![](../_resources/Pasted%20image%2020250108131703.png)
+- Стек протоколов, реализуемый на практике - TCP/IP
 
+
+![](../_resources/Pasted%20image%2020250108131743.png)
+![](../_resources/Pasted%20image%2020250108131818.png)
+
+
+
+![](../_resources/Pasted%20image%2020250108131906.png)
+
+
+![](../_resources/Pasted%20image%2020250108132034.png)
+- Фактически тип сокета определяет основные методы обработки, упаковки и отправки данных, записываемых в сокет/читаемых из сокета(иначе говоря, определяет диапазон конкретных применяемых протоколов)
+- **Why TCP (SOCK_STREAM) is Considered a Stream:** 
+While TCP indeed operates on the concept of **packets (or segments)** at a lower level (the transport layer), **TCP provides a reliable byte stream** at the application layer. This means that for the user or application programming interface (API) level, the data is treated as a continuous, ordered flow of bytes, without worrying about the underlying packetization.  
+- Here’s how it works:  
+**Segmentation and Reassembly**: At the transport layer, TCP divides data into packets (segments) for transmission, and each segment contains a sequence number and other information. But when the data is received, **TCP reassembles these segments in the correct order** and presents the received data to the application as a continuous stream of bytes.  
+**No Message Boundaries**: TCP doesn’t preserve message boundaries. This means that, from the application’s perspective, it just sends and receives an uninterrupted flow of data. The application doesn't know where one packet ends and the next one begins (those boundaries are not visible to the application).  
+**Stream of Data**: When you send data over TCP, you write a series of bytes to the socket, and TCP handles breaking those bytes into segments, transmitting them, and reassembling them at the receiver. Similarly, when you read from a TCP socket, you read data as a continuous stream (not as discrete packets), and TCP will provide that data after reassembling any segmented parts
+
+- **Contrast with SOCK_DGRAM (UDP):**  
+On the other hand, **SOCK_DGRAM** is used for **UDP (User Datagram Protocol)**, which is connectionless and operates on discrete, independent packets (datagrams). UDP:  
+Does **preserve message boundaries**: Each packet sent via UDP represents a separate message. The application knows exactly where one packet ends and the next begins.  
+Does not guarantee reliability, ordering, or congestion control like TCP.  
+
+Even though TCP uses packets (or segments), its key feature is to **present data as a continuous stream**, abstracting the packetization details from the application layer. This is why TCP is considered a "stream" protocol, while UDP is often referred to as a "message-oriented" or "datagram" protocol.  
+
+- TCP - connection-oriented(виртуальный коннект), UDP - not connection oriented
+
+> Распространенная практкика - реализация своего прикладного протокола в userspace под собственные нужды на основе протоколов L4. Но тут нужно учитывать возможные коллизии функционала своих протоколов поверх и протоколов L4(функционал обеспечения порядка доставки, гарантий доставки, проверки целостности данных etc)
