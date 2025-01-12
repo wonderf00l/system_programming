@@ -61,3 +61,10 @@ kevent(kq, &old_ev, 1, 0, 0, NULL);
 ```
 ![](../_resources/Pasted%20image%2020250112165118.png)
 
+#### epoll
+![](../_resources/Pasted%20image%2020250112171004.png)
+
+
+#### IO batching
+![](../_resources/Pasted%20image%2020250112171736.png)
+- Можно записать N байт-буферов в файл/сокет за 1 syscall, вместо N syscalls на N буферов
