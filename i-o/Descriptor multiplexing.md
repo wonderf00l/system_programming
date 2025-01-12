@@ -31,4 +31,33 @@
 - API намного интуитивнее ***select***
 - Главный минус - ядро линейно проходит по всем дескрипторам и вешиает на них трекинг события, если его не было при посещении. При детекте события нужно пройтись и снять трекинг с дескрипторов, на которые не прилетели события. При большом числе дескрипторов вызов ***poll*** весьма затратен
 
+#### kqueue(Mac, FreeBSD)
+
+![](../_resources/Pasted%20image%2020250112164930.png)
+- Подписка на различные события ядра(не только ***IO***)
+
+```C
+int kq = kqueue(); // create the queue
+
+/*
+Track a new event on the descriptor fd. Each event (read, write) needs an own kevent
+*/
+struct kevent new_ev;
+EV_SET(&new_ev, fd, EVFILT_READ/WRITE/..., EV_ADD, 0, 0, 0); // добавить в очередь прослушку событий чтения/записи дескриптора fd 
+kevent(kq, &new_ev, 1, 0, 0, NULL);
+
+// fetch happened events
+struct kevent happened_ev;
+kevent(kq, NULL, 0, &happened_ev, 1, NULL); // получение случившихся событий
+if (happened_ev.filter | EVFILT_READ)
+        /* Can safely read from happened_ev.ident. */
+if (happened_ev.filter | EVFILT_WRITE)
+        /* Can safely write to happened_ev.ident. */
+
+// Delete an event from tracking
+struct kevent old_ev;
+EV_SET(&old_ev, fd, EVFILT_READ/WRITE/..., EV_DELETE, 0, 0, 0);
+kevent(kq, &old_ev, 1, 0, 0, NULL);
+```
+![](../_resources/Pasted%20image%2020250112165118.png)
 
